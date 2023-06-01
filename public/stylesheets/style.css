@@ -1,8 +1,71 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  box-sizing: border-box;
+  font-family: Helvetica;
+  color: #424748;
 }
 
-a {
-  color: #00B7FF;
+body {
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: 
+    "nav"
+    "main"
+}
+
+body > nav {
+  grid-area: nav;
+  background-color: #74eb7e;
+  display: flex;
+  border-radius: 30px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px 0 30px;
+}
+
+#title {
+  margin-right: auto;
+  text-decoration: none;
+}
+
+#title > a {
+  text-decoration: none;
+}
+
+nav > a {
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 34px;
+}
+
+.login img {
+  height: 30px;
+}
+
+body > main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #E8ECEB;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+footer {
+  background-color: #64ca6c;
+  display: flex;
+  border-radius: 30px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px 10px 30px;
 }

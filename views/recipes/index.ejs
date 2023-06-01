@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+
+<h2>Search for Recipes</h2>
+<form id="search-form" method="POST"
+  action="/recipes/show">
+  <label>Recipe Name</label>
+  <input type="text" name="name">
+  <label>Dish Type</label>
+  <input type="text" name="dishType">
+  <label>Cuisine</label>
+  <input type="text" name="cuisine">
+  <label>Health Type</label>
+  <input type="text" name="healthType">
+  <label>Diet Type</label>
+  <input type="text" name="dietType">
+  <label>Ingredients</label>
+  <select name="ingredients">
+    <option value="1">ingredients.name</option>
+  </select>
+  <input type="submit" value="Add Review">
+</form>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<h2>New Recipe</h2>
+<form id="new-form" method="POST"
+  action="/recipes/show">
+  <label>Recipe Name</label>
+  <input type="text" name="name">
+  <label>Dish Type</label>
+  <input type="text" name="dishType">
+  <label>Cuisine</label>
+  <input type="text" name="cuisine">
+  <label>Health Type</label>
+  <input type="text" name="healthType">
+  <label>Diet Type</label>
+  <input type="text" name="dietType">
+  <label>Ingredients</label>
+  <select name="ingredients">
+    <option value="1">ingredients.name</option>
+  </select>
+  OR
+  <input type="text" name="ingredients">
+  <label>Method</label>
+  <textarea name="method"></textarea>
+  <input type="submit" value="Add Recipe">
+</form>
+
+<%- include('../partials/footer') %>
