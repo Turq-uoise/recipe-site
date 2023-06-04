@@ -23,20 +23,37 @@ const recipeSchema = new Schema({
     required: true,
     unique: true
   },
-	owner: {
+	user: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
 	},
-  dishType: String,
+	userName: String,
+  userAvatar: String,
+  dishType: {
+		type: String, 
+		required: true,
+	},
   ingredients: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Ingredient'
 	}],
-  cuisine: String,
-  dietType: String,
-  healthType: String,
-  method: String,
+  cuisine: {
+		type: String, 
+		required: true,
+	},
+  dietType: {
+		type: String, 
+		default: "N/A",
+	},
+  healthType: {
+		type: String, 
+		default: "N/A",
+	},
+  method: {
+		type: String, 
+		required: true,
+	},
   comments: [commentSchema],
   likes: Number,
   posted: Date

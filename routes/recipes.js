@@ -10,7 +10,7 @@ router.get('/', recipesCtrl.index);
 router.get('/new', ensureLoggedIn, recipesCtrl.new);
 // // GET /recipes/:id (show functionality) MUST be below new route
 // router.get('/:id', recipesCtrl.show);
-// // POST /recipes
-// router.post('/', ensureLoggedIn, recipesCtrl.create);
+// POST /recipes
+router.post('/', ensureLoggedIn, recipesCtrl.create);
 	
 module.exports = router;

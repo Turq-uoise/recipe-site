@@ -61,6 +61,40 @@ body > main {
   overflow-y: scroll;
 }
 
+#new-form {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, minmax(auto, 22rem));
+}
+
+#new-form *,
+#search-form *,
+#add-comment-form * {
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#new-form input[type="submit"] {
+  grid-column: span 2;
+  width: 10rem;
+  margin-left: auto;
+}
+
+#search-form,
+#add-comment-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(auto, 22rem));
+  grid-gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#search-form input[type="submit"],
+#add-comment-form input[type="submit"]  {
+  width: 10rem;
+  grid-column: 2 / 3;
+}
+
 footer {
   background-color: #64ca6c;
   display: flex;

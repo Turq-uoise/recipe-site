@@ -1,8 +1,7 @@
 <%- include('../partials/header') %>
 
 <h2>New Recipe</h2>
-<form id="new-form" method="POST"
-  action="/recipes/show">
+<form id="new-form" action="/recipes" method="POST">
   <label>Recipe Name</label>
   <input type="text" name="name">
   <label>Dish Type</label>
@@ -15,13 +14,15 @@
   <input type="text" name="dietType">
   <label>Ingredients</label>
   <select name="ingredients">
-    <option value="1">ingredients.name</option>
+    <option disabled selected>Add Ingredient</option>
   </select>
-  OR
-  <input type="text" name="ingredients">
+  <label>OR</label>
+  <input type="text" name="ingredients" placeholder="(separate ingredients by commas)">
   <label>Method</label>
   <textarea name="method"></textarea>
   <input type="submit" value="Add Recipe">
 </form>
+
+<p><%- errorMsg %></p>
 
 <%- include('../partials/footer') %>
