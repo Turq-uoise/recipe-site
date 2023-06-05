@@ -13,16 +13,34 @@
   <label>Diet Type</label>
   <input type="text" name="dietType">
   <label>Ingredients</label>
-  <select name="ingredients">
+  <select name="ingredients" id="ingredientDropdown">
     <option disabled selected>Add Ingredient</option>
+    <% ingredients.forEach(function(i) { %>
+      <option value="<%= i.name %>"><%= i.name %></option>
+    <%  }) %>
   </select>
   <label>OR</label>
-  <input type="text" name="ingredients" placeholder="(separate ingredients by commas)">
+  <textarea name="ingredients" placeholder="(separate ingredients by commas)" id="ingredientText"></textarea>
   <label>Method</label>
   <textarea name="method"></textarea>
   <input type="submit" value="Add Recipe">
 </form>
 
 <p><%- errorMsg %></p>
+
+<script>
+  // Get references to the dropdown and text field elements
+  let dropdown = document.getElementById('ingredientDropdown');
+  let textField = document.getElementById('ingredientText');
+
+  // Add an event listener to the dropdown for the change event
+  dropdown.addEventListener('change', function() {
+    // Get the selected option value
+    let selectedOption = dropdown.value;
+
+    // Set the selected option value in the text field
+    textField.value += selectedOption + ", ";
+  });
+</script>
 
 <%- include('../partials/footer') %>
