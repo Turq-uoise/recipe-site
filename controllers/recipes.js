@@ -21,15 +21,26 @@ async function create(req, res) {
   req.body.user = req.user._id;
   req.body.userName = req.user.name;
   req.body.userAvatar = req.user.avatar;
+  req.body.ingredients = req.body.ingredients.split(/\s*,\s*/);
+  for (let i = 0; i < req.body.ingredients.length; i++) {
+    let arr = req.body.ingredients[i].split("");
+    console.log("arr: " + arr);
+    arr[0] = arr[0].toUpperCase();
+    const upperCased = arr.join("");
+    req.body.ingredients[i] = upperCased;
+  }
+
+  console.log("req ingredients: " + req.body.ingredients);
 
   for (let key in req.body) {
     if (req.body[key] === '') delete req.body[key];
   }
 
+
   const createdIngredients = [];
   const newIngredients = [];
-  const filter = { name: { $in: req.body.ingredients } };
-  const ingredientsSaved = req.body.ingredients;
+  const filter = { name: { $in: [...req.body.ingredients] } };
+  const ingredientsSaved =  [...req.body.ingredients];
   let recipeID;
   
   try {
@@ -39,26 +50,24 @@ async function create(req, res) {
   } catch (err) {
     let errMsgWithBreaks = err.message.replace(/\.,/g, '<br>');
     errMsgWithBreaks = errMsgWithBreaks.replace(/:/, ': <br>');
-    console.log(errMsgWithBreaks);
-    res.render('recipes/new', { errorMsg: errMsgWithBreaks });
+    errMsgWithBreaks = errMsgWithBreaks.replace(/E11000 duplicate key error collection: <br> recipe-site.recipes index: name_1 dup key: { name: /, 'A recipe already has the name ');
+    errMsgWithBreaks = errMsgWithBreaks.replace(/}/, '');
+    return res.render('recipes/new', { errorMsg: errMsgWithBreaks });
   }
 
   try {
     req.body.ingredients = ingredientsSaved;
-    req.body.ingredients = req.body.ingredients.split(/\s*,\s*/);
+
     // Figure out which of the inputted ingredients aren't already in the Schema
     Ingredient.find(filter).then(async existingIngredients => {
       const existingIngredientNames = existingIngredients.map(ingredient => ingredient.name);
       newIngredients.push(...req.body.ingredients.filter(name => !existingIngredientNames.includes(name)));
-      console.log("new Ingredients: " + newIngredients);
 
     // Add each new inputted ingredient into the Schema
       newIngredients.forEach(name => {
-        const ingredient = new Ingredient({ name });
+        const ingredient = { name };
         createdIngredients.push(ingredient);
       });
-
-      console.log("createdIngredients: " + createdIngredients);
 
       await Ingredient.create(createdIngredients);
 
@@ -66,21 +75,18 @@ async function create(req, res) {
 
       const recipe = await Recipe.findById(recipeID);
 
-      console.log(recipe);
-
-      addedIngredients.forEach(ingredient => {
-        recipe.ingredients.push(ingredients.ingredientId)
+      addedIngredients.forEach(async ingredient => {
+        recipe.ingredients.push(ingredient._id);
       })
 
-      await recipe.save();
-      res.redirect(`/recipes/${recipe._id}`);
+      await recipe.save();     
+      return res.redirect(`/recipes`);
     });
 
   } catch (err) {
     let errMsgWithBreaks = err.message.replace(/\,/g, '<br>');
     errMsgWithBreaks = errMsgWithBreaks.replace(/:/, ': <br>');
+    return res.render('recipes/new', { errorMsg: errMsgWithBreaks });
   }
-  
-
 }
 
