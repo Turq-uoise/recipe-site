@@ -1,20 +1,20 @@
 <%- include('../partials/header') %>
 
-<table id="list">
-	<thead>
-		<tr>
-		<th>Name</th>
-		<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% recipes.forEach(function(r) { %>
-		<tr>
-			<td><%= r.name %></td>
-			<td><a href="/recipes/<%= r._id %>">Go to Recipe</a></td>
-		</tr>
-		<% }); %>
-		</tbody>
-</table>
+<section id="show-page">
+  <div>Name: </div>
+  <div><%= recipe.name %> <small>posted on <%= recipe.posted.toLocaleDateString() %></small></div>
+  <div>Dish Type: </div>
+  <div><%= recipe.dishType %></div>
+  <div>Cuisine: </div>
+  <div><%= recipe.cuisine %></div>
+  <div>Ingredients:</div>
+  <ul>
+    <%- recipe.ingredients.map(i => 
+      `<li>${i.name}</li>`
+    ).join('') %>
+  </ul>
+  <div>Method: </div>
+  <div><%= recipe.method %></div>
+</section>
 
 <%- include('../partials/footer') %>

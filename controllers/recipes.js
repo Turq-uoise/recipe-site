@@ -3,13 +3,22 @@ const Ingredient = require('../models/ingredient');
 
 module.exports = {
   index,
+  show,
   new: newRecipe,
   create
 }
 
 async function index(req, res) {
   const recipes = await Recipe.find({});
-  res.render('recipes/index', recipes);
+  const ingredients = await Ingredient.find({});
+  res.render('recipes/index', {recipes, ingredients});
+}
+
+async function show(req, res) {
+  console.log("hello");
+  const recipe = await Recipe.findById(req.params.id).populate('ingredients');
+  const ingredients = await Ingredient.find({ _id: { $nin: recipe.ingredient } }).sort('name');
+  res.render('recipes/show', { title: `${recipe.name}`, recipe, ingredients });
 }
 
 async function newRecipe(req, res) {
