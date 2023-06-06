@@ -13,10 +13,10 @@
   <label>Diet Type</label>
   <input type="text" name="dietType">
   <label>Ingredients</label>
-  <select name="ingredients" id="ingredientDropdown">
+  <select id="ingredientDropdown">
     <option disabled selected>Add Ingredient</option>
     <% ingredients.forEach(function(i) { %>
-      <option value="<%= i.name %>"><%= i.name %></option>
+      <option><%= i.name %></option>
     <%  }) %>
   </select>
   <label>OR</label>
@@ -36,7 +36,7 @@
   // Add an event listener to the dropdown for the change event
   dropdown.addEventListener('change', function() {
     // Get the selected option value
-    let selectedOption = dropdown.value;
+    let selectedOption = dropdown.options[dropdown.selectedIndex].text;
 
     // Set the selected option value in the text field
     textField.value += selectedOption + ", ";

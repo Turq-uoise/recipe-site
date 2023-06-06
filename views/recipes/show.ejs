@@ -1,20 +1,90 @@
 <%- include('../partials/header') %>
 
 <section id="show-page">
-  <div>Name: </div>
-  <div><%= recipe.name %> <small>posted on <%= recipe.posted.toLocaleDateString() %></small></div>
+  <h2><%= recipe.name %></h2>
+  <div><br><br><small><%= recipe.posted.toLocaleDateString() %></small></div>
   <div>Dish Type: </div>
   <div><%= recipe.dishType %></div>
   <div>Cuisine: </div>
   <div><%= recipe.cuisine %></div>
+  <% if (recipe.dietType.length) { %>
+    <div>Diet Type: </div>
+    <div><%= recipe.dietType %></div> 
+  <% } %>
+  <% if (recipe.healthType.length) { %>
+    <div>Health Type: </div>
+    <div><%= recipe.healthType %></div>
+  <% } %>
   <div>Ingredients:</div>
   <ul>
-    <%- recipe.ingredients.map(i => 
-      `<li>${i.name}</li>`
-    ).join('') %>
+    <% recipe.ingredients.forEach(function(ingredient){ %>
+      <li><a href="/recipes?ingredient=<%= ingredient._id %>"><%= ingredient.name %></a></li>
+    <% }) %>
   </ul>
   <div>Method: </div>
-  <div><%= recipe.method %></div>
+  <div style="margin-left: 10px"><%= recipe.method %></div>
 </section>
+
+<br><br><h2>Comments</h2>
+<form id="add-comment-form" method="POST"
+  action="/recipes/<%= recipe._id %>/comments">
+  <label>Comment:</label>
+  <textarea name="content"></textarea>
+  <label>Rating:</label>
+  <select name="rating">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5" selected>5</option>
+  </select>
+  <input type="submit" value="Add comment">
+</form>
+
+<% if (recipe.comments.length) { %>
+  <table class="comment-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Date</th>
+        <th>Comment</th>
+        <th>Rating</th>
+        <th>Likes</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let total = 0 %>
+      <% recipe.comments.forEach(function(r) { %>
+        <% total += r.rating %>
+        <tr>
+          <td class="comment-user"><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer" ><%= r.userName %></td>
+          <td><%= r.createdAt.toLocaleDateString() %></td>
+          <td><%= r.content %></td>
+          <td>⭐<%= r.rating %></td>
+          <td>❤️ <%= r.likes %></td>
+          <td>
+            <% if (user?._id.equals(r.user)) { %>
+              <form action="/comments/<%= r._id %>?_method=DELETE" method="POST">
+                <button type="submit">X</button>
+              </form>
+            <% } else { %>
+              <form action="/comments/<%= r._id %>?_method=PUT" method="POST">
+                <button type="submit">Like</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+      <tr>
+        <td colspan="3"></td>
+        <td><strong><%= (total / recipe.comments.length).toFixed(1) %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+<% } else { %>
+  <h5>No Comments Yet</h5>
+<% } %>
+  
 
 <%- include('../partials/footer') %>

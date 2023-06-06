@@ -1,0 +1,24 @@
+<%- include('../partials/header') %>
+
+<h2>Search Results</h2>
+<table id="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Dish Type</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% recipes.forEach(function(r) { %>
+      <tr>
+        <td><%= r.name %></td>
+        <td><%= r.dishType %></td>
+        <td><a href="/recipes/<%= r._id %>">GO TO RECIPE</a></td>
+      </tr>
+      <% }); %>
+    </tbody>
+</table>
+
+
+<%- include('../partials/footer') %>

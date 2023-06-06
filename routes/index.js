@@ -2,29 +2,15 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const indexCtrl = require('../controllers/index');
+const authCtrl = require('../controllers/auth');
 
 router.get('/', indexCtrl.index);
 
 // Google OAuth login route
-router.get('/auth/google', passport.authenticate(
-  // Which passport strategy is being used?
-  'google',
-  {
-    // Requesting the user's profile and email
-    scope: ['profile', 'email'],
-    // Optionally force pick account every time
-    // prompt: "select_account"
-  }
-));
+router.get('/auth/google', authCtrl.login);
 
 // Google OAuth callback route
-router.get('/oauth2callback', passport.authenticate(
-  'google',
-  {
-    successRedirect: '/',
-    failureRedirect: '/'
-  }
-));
+router.get('/oauth2callback', authCtrl.callback);
 
 // OAuth logout route
 router.get('/logout', function(req, res){

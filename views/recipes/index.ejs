@@ -1,27 +1,19 @@
 <%- include('../partials/header') %>
 
 <h2>Search for Recipes</h2>
-<form id="search-form" method="POST" action="/recipes">
-  <label>Recipe Name</label>
-  <input type="text" name="name">
-  <label>Dish Type</label>
-  <input type="text" name="dishType">
-  <label>Cuisine</label>
-  <input type="text" name="cuisine">
-  <label>Health Type</label>
-  <input type="text" name="healthType">
-  <label>Diet Type</label>
-  <input type="text" name="dietType">
+<form id="search-form" method="POST" action="/recipes/search">
   <label>Ingredients</label>
-  <select name="ingredients" id="dropdown">
+  <select id="dropdown">
     <% ingredients.forEach(function(i) { %>
-      <option value="<%= i.name %>"><%= i.name %></option>
+      <option value="<%= i._id %>"><%= i.name %></option>
     <% }) %>
   </select>
-  <input type="submit" value="Search">
-  <label></label>
+  <label>Filter</label>
   <textarea name="ingredients" id="textField"></textarea>
+  <input type="submit" value="Search">
 </form>
+
+<p><%- errorMsg %></p>
 
 <script>
   // Get references to the dropdown and text field elements
@@ -31,7 +23,7 @@
   // Add an event listener to the dropdown for the change event
   dropdown.addEventListener('change', function() {
     // Get the selected option value
-    let selectedOption = dropdown.value;
+    let selectedOption = dropdown.options[dropdown.selectedIndex].text;
 
     // Set the selected option value in the text field
     textField.value += selectedOption + ", ";

@@ -85,7 +85,7 @@ body > main {
 #add-comment-form {
   display: grid;
   grid-template-columns: repeat(4, minmax(auto, 22rem));
-  grid-gap: 1rem;
+  grid-gap: 10px;
   margin-bottom: 2rem;
 }
 
@@ -127,6 +127,7 @@ table td {
 
 #show-page {
   display: grid;
+  text-align: center;
   grid-template-columns: auto auto;
   grid-gap: 1rem;
 }
@@ -143,6 +144,21 @@ table td {
   
 #show-page li {
   font-weight: bold;
+}
+
+.comment-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-user img {
+  border-radius: 50%;
+  height: 40px;
+}
+
+.comment-table {
+  margin: 0 auto;
 }
 
 footer {

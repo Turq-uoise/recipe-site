@@ -6,6 +6,15 @@ const commentSchema = new Schema({
 		type: String,
 		required: true
 	},
+	rating: Number,
+	likes: { 
+		type: Number, 
+		default: 0
+	},
+	likedBy: [{ 
+		type: Schema.Types.ObjectId,
+		ref: 'User' 
+	}],
 	user: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
@@ -42,21 +51,16 @@ const recipeSchema = new Schema({
 		type: String, 
 		required: true,
 	},
-  dietType: {
-		type: String, 
-		default: "N/A",
-	},
-  healthType: {
-		type: String, 
-		default: "N/A",
-	},
+  dietType: String,
+  healthType: String,
   method: {
 		type: String, 
 		required: true,
 	},
   comments: [commentSchema],
-  likes: Number,
-  posted: Date
+  posted: {type: Date, default: Date.now}
 });
+
+recipeSchema.index({ingredients: 'text'})
 
 module.exports = mongoose.model('Recipe', recipeSchema);
