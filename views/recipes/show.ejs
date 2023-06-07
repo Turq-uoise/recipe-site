@@ -2,7 +2,7 @@
 
 <section id="show-page">
   <h2><%= recipe.name %></h2>
-  <div><br><br><small><%= recipe.posted.toLocaleDateString() %></small></div>
+  <div><br><small>posted by <%= recipe.userName %></small><br><small><%= recipe.posted.toLocaleDateString() %></small></div>
   <div>Dish Type: </div>
   <div><%= recipe.dishType %></div>
   <div>Cuisine: </div>
