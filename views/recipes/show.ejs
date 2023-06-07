@@ -7,12 +7,12 @@
   <div><%= recipe.dishType %></div>
   <div>Cuisine: </div>
   <div><%= recipe.cuisine %></div>
-  <% if (recipe.dietType.length) { %>
+  <% if (recipe.dietType) { %>
     <div>Diet Type: </div>
     <div><%= recipe.dietType %></div> 
   <% } %>
-  <% if (recipe.healthType.length) { %>
-    <div>Health Type: </div>
+  <% if (recipe.healthType) { %>
+    <div>Health Info: </div>
     <div><%= recipe.healthType %></div>
   <% } %>
   <div>Ingredients:</div>
@@ -22,7 +22,7 @@
     <% }) %>
   </ul>
   <div>Method: </div>
-  <div style="margin-left: 10px"><%= recipe.method %></div>
+  <div style="margin-left: 10px"><%- recipe.method %></div>
 </section>
 
 <br><br><h2>Comments</h2>

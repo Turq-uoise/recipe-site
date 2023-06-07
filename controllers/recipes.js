@@ -41,7 +41,9 @@ async function show(req, res) {
 
 async function newRecipe(req, res) {
   const ingredients = await Ingredient.find({}).sort('name');
-  res.render('recipes/new', { errorMsg: '', ingredients });
+  const cuisine = ["American", "Asian", "British", "Caribbean", "Central Europe", "Chinese", "Eastern Europe", "French", "Greek", "Indian", "Italian", "Japanese", "Korean", "Kosher", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "South American", "South East Asian", "World", "Other"];
+  const dishType =  ["Alcohol Cocktail", "Biscuits And Cookies", "Bread", "Cereals", "Condiments And Sauces", "Desserts", "Drinks", "Egg", "Ice Cream And Custard", "Main Course", "Pancake", "Pasta", "Pastry", "Pies And Tarts", "Pizza", "Preps", "Preserve", "Salad", "Sandwiches", "Seafood", "Side Dish", "Soup", "Special Occasions", "Starter", "Sweets"];
+  res.render('recipes/new', { errorMsg: '', ingredients, cuisine, dishType });
 }
  
 async function search(req, res) {

@@ -5,9 +5,19 @@
   <label>Recipe Name</label>
   <input type="text" name="name">
   <label>Dish Type</label>
-  <input type="text" name="dishType">
+  <select id="dishTypeDropdown" name="dishType">
+    <option disabled selected>Choose Dish Type</option>
+    <% dishType.forEach(function(d) { %>
+      <option value="<%- d %>"><%- d %></option>
+    <%  }) %>
+  </select>
   <label>Cuisine</label>
-  <input type="text" name="cuisine">
+  <select id="cuisineDropdown" name="cuisine">
+    <option disabled selected>Choose Cuisine</option>
+    <% cuisine.forEach(function(c) { %>
+      <option value="<%- c %>"><%- c %></option>
+    <%  }) %>
+  </select>
   <label>Health Type</label>
   <input type="text" name="healthType">
   <label>Diet Type</label>
